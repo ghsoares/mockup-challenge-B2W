@@ -1,0 +1,37 @@
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <div id="main">
+        <img id="logo" src="../img/logo.png" alt="Logo B2W Inside">
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email" class="input-label">Email</label>
+                <input type="email" name="email" class="form-control" spellcheck="false" id="email" placeholder="exemplo@b2w.com.br" required>
+                <div class="invalid-feedback">
+                    Email não está cadastrado
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="paswd" class="input-label">Senha</label>
+                <input type="password" name="senha" class="form-control" id="paswd" required>
+                <div class="invalid-feedback">
+                    Senha incorreta
+                </div>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" name="rem-passwd" id="rem-passwd">
+                <label class="form-check-label" for="rem-passwd">Lembrar senha</label>
+            </div>
+            <button type="submit" id="form-submit" class="btn btn-primary">Entrar</button>
+        </form>
+    </div>
+    <script type="text/javascript" src="../js/bootstrap/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap/bootstrap.min.js"></script>
+    <script src="../js/login.js" type="module"></script>
+</body>
+</html>
