@@ -1,4 +1,4 @@
-import {encontrarEmail} from "./fakedb.js";
+import {getFuncionarioByEmail} from "./fakedb.js";
 import {setCookie, removeCookie, addStorageValue, removeStorageValue} from "./storage.js";
 
 const LOGIN_ERRO_EMAIL = 1;
@@ -8,7 +8,7 @@ let submitted = false;
 
 async function validarForm(email, senha) {
     return new Promise((resolve, reject) => {
-        var funcionario = encontrarEmail(email);
+        var funcionario = getFuncionarioByEmail(email);
         if (funcionario == null) {
             reject(LOGIN_ERRO_EMAIL);
             return;

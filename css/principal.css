@@ -23,14 +23,14 @@
     color: rgba(0, 0, 0, 0.5);
 }
 
-#tabs {
+#tabs-select {
     display: flex;
     padding: 0;
     margin: 0;
     list-style-type: none;
 }
 
-#tabs > li {
+#tabs-select > li {
     position: relative;
     flex: 1;
     text-align: center;
@@ -41,7 +41,7 @@
     transition: opacity .25s ease-in-out;
 }
 
-#tabs > li::after {
+#tabs-select > li::after {
     display: block;
     position: absolute;
     content: '';
@@ -55,15 +55,15 @@
     transition: opacity .25s ease-in-out;
 }
 
-#tabs > li.current {
+#tabs-select > li.current {
     opacity: 1;
 }
 
-#tabs > li.current::after {
+#tabs-select > li.current::after {
     opacity: 1;
 }
 
-#tabs a {
+#tabs-select a {
     display: flex;
     color: white;
     font-weight: 700;
@@ -72,4 +72,87 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
+}
+
+#tabs {
+    flex: 1;
+    position: relative;
+}
+
+.tab {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: -100%;
+    opacity: 0;
+
+    transition: left .5s ease-in-out, opacity .25s ease-in-out;
+}
+
+.tab.current {
+    left: 0;
+    opacity: 1;
+}
+
+#lista-equipes {
+    margin-top: 8px;
+    
+}
+
+.equipe {
+    display: flex;
+    width: 100%;
+    border: 0;
+    background-color: #ffffff00;
+    transition: background-color .25s ease-in-out;
+    padding: 8px 8px;
+    position: relative;
+    padding-bottom: 16px;
+    outline: none;
+}
+
+.equipe:active {
+    background-color: rgba(0, 226, 215, 0.2);
+}
+
+.equipe:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+.equipe:not(:last-child)::after {
+    display: block;
+    position: absolute;
+    content: '';
+    background-color: black;
+    opacity: .1;
+    height: 2px;
+    left: 8px;
+    right: 8px;
+    bottom: 0;
+    border-radius: 999px;
+}
+
+.equipe-img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+}
+
+.equipe-desc {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    margin-left: 16px;
+}
+
+.equipe-nome {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.equipe-descricao {
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+    opacity: .75;
+    text-align: left;
 }
