@@ -52,7 +52,7 @@ function htmlFuncionario(funcionario) {
    let code = "";
 
    code += `<button class="membro-equipe">`;
-   code += `<img class="membro-img" src="/img/logo.png" />`
+   code += `<img class="membro-img" src="../img/logo.png" />`
    code += `<h1 class="membro-nome">${funcionario.nome}</h1>`
    code += `</button>`;
 
