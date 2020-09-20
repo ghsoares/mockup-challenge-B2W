@@ -94,9 +94,21 @@
     opacity: 1;
 }
 
-#lista-equipes {
-    margin-top: 8px;
-    
+#lista-equipes > div {
+    position: absolute;
+    top: 8px;
+    width: 100%;
+    height: 100%;
+
+    left: -100%;
+    opacity: 0;
+
+    transition: left .5s ease-in-out, opacity .25s ease-in-out;
+}
+
+#lista-equipes > div.current {
+    left: 0;
+    opacity: 1;
 }
 
 .equipe {
@@ -139,6 +151,7 @@
 }
 
 .equipe-desc {
+    text-align: left;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     margin-left: 16px;
 }
@@ -154,5 +167,50 @@
     font-weight: 400;
     margin: 0;
     opacity: .75;
-    text-align: left;
+}
+
+.membro-equipe {
+    display: flex;
+    width: 100%;
+    border: 0;
+    background-color: #ffffff00;
+    transition: background-color .25s ease-in-out;
+    padding: 8px 8px;
+    position: relative;
+    outline: none;
+}
+
+.membro-equipe:active {
+    background-color: rgba(0, 226, 215, 0.2);
+}
+
+.membro-equipe:not(:last-child) {
+    margin-bottom: 4px;
+}
+
+.membro-equipe:not(:last-child)::after {
+    display: block;
+    position: absolute;
+    content: '';
+    background-color: black;
+    opacity: .1;
+    height: 2px;
+    left: 8px;
+    right: 8px;
+    bottom: 0;
+    border-radius: 999px;
+}
+
+.membro-img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+}
+
+.membro-nome {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 4px;
+    margin-left: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }

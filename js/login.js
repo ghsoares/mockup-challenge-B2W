@@ -1,11 +1,19 @@
 import {getFuncionarioByEmail} from "./fakedb.js";
-import {setCookie, removeCookie, addStorageValue, removeStorageValue} from "./storage.js";
+import {setCookie, removeCookie, getCookie, addStorageValue, removeStorageValue, getStorageValue} from "./storage.js";
 
+/*
+Esse script usa o fakedb.js para autenticar o usuário e
+storage.js para lembrar do usuário
+*/
+
+// Erros de autenticação
 const LOGIN_ERRO_EMAIL = 1;
 const LOGIN_ERRO_SENHA = 2;
 
+// Caso o form foi enviado, bloqueia o duplo envio em caso de lag
 let submitted = false;
 
+// Função assíncrona que valida o form, caso não validar, chama a função reject com o erro
 async function validarForm(email, senha) {
     return new Promise((resolve, reject) => {
         var funcionario = getFuncionarioByEmail(email);
@@ -21,11 +29,37 @@ async function validarForm(email, senha) {
     });
 }
 
-function redirectPrincipal(email, senha) {
-    sessionStorage.setItem("usuario", 0);
+// Redireciona para a página principal e "seta" o id do usuário ao armazenamento da sessão
+function redirectPrincipal(id) {
+    sessionStorage.setItem("usuario", id);
     window.location = "principal.html";
 }
 
+// Checa se o navegador lembra o usuário, bloqueia o form, checa nos cookies e o storage local
+// para validar o login, caso não tiver ou o login for inválido, desbloqueia o form. Caso
+// lembra e for válido o login, redireciona para a página principal
+function checkIfRememberLogin() {
+    if (getCookie("lembrar") == "true") {
+        let email = getStorageValue("lembrar-usuario");
+        let senha = getStorageValue("lembrar-senha");
+
+        $("#login-form").addClass("logging");
+        $("#form-submit").prop("disable", true);
+
+        validarForm(email, senha).then(() => {
+            redirectPrincipal(getFuncionarioByEmail(email).id);
+        }).catch(err => {
+            if (err === LOGIN_ERRO_EMAIL || err === LOGIN_ERRO_SENHA) {
+                $(this).removeClass("logging");
+                $("#form-submit").prop("disable", false);
+            }
+        });
+    }
+}
+
+// Função chamada quando é enviado o form,
+// bloqueia a validação nativa de email, telefone, etc. mas
+// não recarrega a página no envio, dando um feedback ao usuário maior
 $("#login-form").submit(function() {
     if (submitted) {
         return false;
@@ -53,7 +87,7 @@ $("#login-form").submit(function() {
                 resolve();
             });
             querySetCookies.then(() => {
-                redirectPrincipal(email, senha);
+                redirectPrincipal(getFuncionarioByEmail(email).id);
             });
         } else {
             var querySetCookies = new Promise((resolve) => {
@@ -63,7 +97,7 @@ $("#login-form").submit(function() {
                 resolve();
             });
             querySetCookies.then(() => {
-                redirectPrincipal(email, senha);
+                redirectPrincipal(getFuncionarioByEmail(email).id);
             });
         }
         submitted = true;
@@ -79,3 +113,6 @@ $("#login-form").submit(function() {
 
     return false;
 });
+
+// Função chamada quando a página é carregada para checar se lembra o login
+checkIfRememberLogin();
